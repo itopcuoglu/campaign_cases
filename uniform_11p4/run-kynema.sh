@@ -1,5 +1,5 @@
 #PBS -A wyom0218
-#PBS -N mb8
+#PBS -N uniform_11p4
 #PBS -q main
 ##PBS -q debug
 #PBS -l walltime=12:00:00

@@ -17,8 +17,8 @@ io.KE_int = -1
 io.line_plot_int = -1
 io.derived_outputs = q_criterion
 #io.outputs = wall_dist synth_turb_forcing
-time.plot_interval            =  32 #32         # Steps between plot files
-time.checkpoint_interval      =  32 #1440      # Steps between checkpoint files
+time.plot_interval            =  360 #32         # Steps between plot files
+time.checkpoint_interval      =  1440 #1440      # Steps between checkpoint files
 io.plot_file = out01/plt
 io.check_file = rst01/chk 
 

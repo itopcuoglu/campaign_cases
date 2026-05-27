@@ -7,8 +7,9 @@ time.max_step                =   -1     # Max number of time steps
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #         TIME STEP COMPUTATION         #
 #.......................................#
-time.fixed_dt         =   0.004550749963594      # Use this constant dt if > 0
+time.fixed_dt         =   0.003443526170798898      # Use this constant dt if > 0
 time.cfl              =   1.0       # CFL factor
+time.force_regrid_on_restart=false
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #            INPUT AND OUTPUT           #
 #.......................................#
@@ -16,14 +17,14 @@ io.KE_int = -1
 io.line_plot_int = -1
 io.derived_outputs = q_criterion
 #io.outputs = wall_dist synth_turb_forcing
-time.plot_interval            =  32 #32         # Steps between plot files
+time.plot_interval            =  360 #32         # Steps between plot files
 time.checkpoint_interval      =  1440 #1440      # Steps between checkpoint files
-io.plot_file = out01/plt01
-io.check_file = rst01/chk01
-time.checkpoint_start=4320
-io.restart_file=/glade/derecho/scratch/topcuoglu/campaign_cases/resized_long/rst/chk02880
+io.plot_file = out02/plt
+io.check_file = rst02/chk
+time.checkpoint_start=5760
+io.restart_file = /glade/derecho/scratch/topcuoglu/campaign_cases/uniform_11p4/rst01/chk05760 
 
-#incflo.initial_iterations = 3
+incflo.initial_iterations = 3
 
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #               PHYSICS                 #
@@ -48,7 +49,7 @@ FreeStream.velocity_type = ConstValue
 ConstValue.velocity.value = 11.4 0.0 0.0
 
 FreeStream.tke_type = ConstValue
-ConstValue.tke.value = 1.0
+ConstValue.tke.value = 0.02
 FreeStream.sdr_type = ConstValue
 ConstValue.sdr.value = 250.0
 
@@ -59,12 +60,13 @@ ConstValue.wall_dist.value = 8.0
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #        ADAPTIVE MESH REFINEMENT       #
 #.......................................#
-amr.n_cell              = 128 64 96 # Grid cells at coarsest AMRlevel
+amr.n_cell              = 96 64 96 # Grid cells at coarsest AMRlevel
 amr.refine_grid_layout = true
 #amr.max_grid_size       = 128
 amr.max_grid_size       = 32
 amr.blocking_factor     = 8
-amr.max_level           = 3           # Max AMR level in hierarchy
+#amr.max_level           = 2           # Max AMR level in hierarchy
+amr.max_level           = 4           # Max AMR level in hierarchy
 #amr.max_level           = 5           # Max AMR level in hierarchy
 tagging.labels = static
 tagging.static.static_refinement_def = static_box.txt
@@ -73,14 +75,14 @@ tagging.static.type = CartBoxRefinement
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #              GEOMETRY                 #
 #.......................................#
-geometry.prob_lo        =    -640.0         -320.0      0.0  # Lo corner coordinates
-geometry.prob_hi        =    640.0         320.0       960.0  # Hi corner coordinates
+geometry.prob_lo        =    0.0         0.0      0.0  # Lo corner coordinates
+geometry.prob_hi        =    960.0         640.0       960.0  # Hi corner coordinates
 geometry.is_periodic    =   0   0   0   # Periodicity x y z (0/1)
 # Boundary conditions
 xlo.type = "mass_inflow"
 xlo.density = 1.225
 xlo.velocity = 11.4 0.0 0.0
-xlo.tke = 1.0
+xlo.tke = 0.02
 xlo.sdr = 250.0
 xhi.type = "pressure_outflow"
 ylo.type = "slip_wall"
@@ -92,8 +94,8 @@ incflo.verbose =   0
 #########################################
 #     EXCEPTION HANDLING                #
 #########################################
-amrex.abort_on_out_of_gpu_memory = 1
-amrex.the_arena_is_managed = 1
+#amrex.abort_on_out_of_gpu_memory = 1
+#amrex.the_arena_is_managed = 1
 #amrex.fpe_trap_invalid  =   1           # Trap NaNs
 #amrex.throw_exception = 1
 #amrex.signal_handling = 0

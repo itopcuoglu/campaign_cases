@@ -2,13 +2,13 @@
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #            SIMULATION STOP            #
 #.......................................#
-time.stop_time               =   7200     # Max (simulated) time to evolve
+time.stop_time               =   -1     # Max (simulated) time to evolve
 time.max_step                =   -1     # Max number of time steps
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #         TIME STEP COMPUTATION         #
 #.......................................#
-time.fixed_dt         =   0.5      # Use this constant dt if > 0
-time.cfl              =   0.95       # CFL factor
+time.fixed_dt         =   0.003443526170798898      # Use this constant dt if > 0
+time.cfl              =   1.0       # CFL factor
 time.force_regrid_on_restart=false
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #            INPUT AND OUTPUT           #
@@ -17,75 +17,77 @@ io.KE_int = -1
 io.line_plot_int = -1
 io.derived_outputs = q_criterion
 #io.outputs = wall_dist synth_turb_forcing
-time.plot_interval            =  32 #32         # Steps between plot files
-time.checkpoint_interval      =  32 #1440      # Steps between checkpoint files
-io.plot_file = out/plt
-io.check_file = rst/chk 
+time.plot_interval            =  360 #32         # Steps between plot files
+time.checkpoint_interval      =  1440 #1440      # Steps between checkpoint files
+io.plot_file = out03/plt
+io.check_file = rst03/chk
+time.checkpoint_start=11520
+io.restart_file = /glade/derecho/scratch/topcuoglu/campaign_cases/uniform_11p4/rst02/chk11520
 
 incflo.initial_iterations = 3
 
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #               PHYSICS                 #
 #.......................................#
-incflo.physics = ABL
-ICNS.source_terms = ABLForcing BoussinesqBuoyancy ABLMeanBoussinesq
-turbulence.model = OneEqKsgsM84
-TKE.source_terms = KsgsM84Src
-BoussinesqBuoyancy.reference_temperature = 290.0
-ABL.reference_temperature = 290.0
-ABL.kappa = .41
-ABL.surface_roughness_z0 = 0.05
-
-## Initial conditions
-incflo.velocity = 9.8726896031426 5.7 0.0
-ABLForcing.abl_forcing_height = 90.0
-ABL.perturb_temperature = true
-ABL.cutoff_height       = 50
-ABL.perturb_velocity    = true
-ABL.perturb_ref_height  = 50
-ABL.init_tke_beare_profile = true
-ABL.temperature_heights   = 0.0  760.0 1000.
-ABL.temperature_values    = 290 290.0 292.4
-
-# Physical parameters
 incflo.gravity        =  0.0  0.0 -9.81  # Gravitational force (3D)
 incflo.density        =  1.225           # Reference density
-transport.viscosity = 1.8e-5
-transport.laminar_prandtl = 0.7
-transport.turbulent_prandtl = 0.3333
-transport.reference_temperature = 290.
-# Discretization
+incflo.velocity = 11.4 0.0 0.0
 incflo.use_godunov = 1
 incflo.godunov_type = "weno_z"
 
+transport.viscosity = 1.8e-5
+transport.laminar_prandtl = 0.7
+transport.turbulent_prandtl = 0.3333
+turbulence.model = KOmegaSST
+TKE.source_terms = KwSSTSrc
+SDR.source_terms = SDRSrc
 
+incflo.physics = FreeStream
+
+FreeStream.velocity_type = ConstValue
+ConstValue.velocity.value = 11.4 0.0 0.0
+
+FreeStream.tke_type = ConstValue
+ConstValue.tke.value = 0.02
+FreeStream.sdr_type = ConstValue
+ConstValue.sdr.value = 250.0
+
+FreeStream.fields = wall_dist
+FreeStream.wall_dist_type = ConstValue
+ConstValue.wall_dist.value = 8.0
 
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #        ADAPTIVE MESH REFINEMENT       #
 #.......................................#
-amr.n_cell              = 96 96 48 # Grid cells at coarsest AMRlevel
+amr.n_cell              = 96 64 96 # Grid cells at coarsest AMRlevel
 amr.refine_grid_layout = true
 #amr.max_grid_size       = 128
 amr.max_grid_size       = 32
 amr.blocking_factor     = 8
-amr.max_level           = 0           # Max AMR level in hierarchy
-#tagging.labels = static
-#tagging.static.static_refinement_def = static_box.txt
-#tagging.static.type = CartBoxRefinement
+#amr.max_level           = 2           # Max AMR level in hierarchy
+amr.max_level           = 4           # Max AMR level in hierarchy
+#amr.max_level           = 5           # Max AMR level in hierarchy
+tagging.labels = static
+tagging.static.static_refinement_def = static_box.txt
+tagging.static.type = CartBoxRefinement
 
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #              GEOMETRY                 #
 #.......................................#
 geometry.prob_lo        =    0.0         0.0      0.0  # Lo corner coordinates
-geometry.prob_hi        =    1920.0         1920.0       960.0  # Hi corner coordinates
-geometry.is_periodic    =   1   1   0   # Periodicity x y z (0/1)
+geometry.prob_hi        =    960.0         640.0       960.0  # Hi corner coordinates
+geometry.is_periodic    =   0   0   0   # Periodicity x y z (0/1)
 # Boundary conditions
-zlo.type =   "wall_model"
-zlo.temperature_type = "wall_model"
+xlo.type = "mass_inflow"
+xlo.density = 1.225
+xlo.velocity = 11.4 0.0 0.0
+xlo.tke = 0.02
+xlo.sdr = 250.0
+xhi.type = "pressure_outflow"
+ylo.type = "slip_wall"
+yhi.type = "slip_wall"
+zlo.type =   "slip_wall"
 zhi.type =   "slip_wall"
-zhi.temperature_type = "fixed_gradient"
-zhi.temperature = 0.01
-
 incflo.verbose =   0
 
 #########################################

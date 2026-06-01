@@ -1,5 +1,5 @@
 #PBS -A wyom0218
-#PBS -N abl_spinup
+#PBS -N abl_precursor
 #PBS -q main
 ##PBS -q debug
 #PBS -l walltime=12:00:00

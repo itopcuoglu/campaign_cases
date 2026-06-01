@@ -24,7 +24,7 @@ io.plot_file = out/plt
 io.check_file = rst/chk 
 
 ABL.bndry_file = bndry_file
-ABL.bndry_io_mode = 10
+ABL.bndry_io_mode = 0
 ABL.bndry_planes = xlo ylo
 ABL.bndry_output_start_time = 7200.0
 ABL.bndry_var_names = velocity temperature tke

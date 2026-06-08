@@ -17,11 +17,12 @@ io.KE_int = -1
 io.line_plot_int = -1
 io.derived_outputs = q_criterion
 #io.outputs = wall_dist synth_turb_forcing
-time.plot_interval            =  360 #32         # Steps between plot files
+time.plot_interval            =  1440 #32         # Steps between plot files
 time.checkpoint_interval      =  1440 #1440      # Steps between checkpoint files
 io.plot_file = out03/plt
 io.check_file = rst03/chk
 time.checkpoint_start=11520
+time.checkpoint_start_time=39.66942148760331
 io.restart_file = /glade/derecho/scratch/topcuoglu/campaign_cases/uniform_11p4/rst02/chk11520
 
 incflo.initial_iterations = 3

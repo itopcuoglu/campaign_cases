@@ -22,6 +22,7 @@ time.checkpoint_interval      =  1440 #1440      # Steps between checkpoint file
 io.plot_file = out02/plt
 io.check_file = rst02/chk
 time.checkpoint_start=5760
+time.checkpoint_start_time = 19.834710743801654 
 io.restart_file = /glade/derecho/scratch/topcuoglu/campaign_cases/uniform_11p4/rst01/chk05760 
 
 incflo.initial_iterations = 3

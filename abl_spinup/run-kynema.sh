@@ -3,7 +3,7 @@
 #PBS -q main
 ##PBS -q debug
 #PBS -l walltime=02:00:00
-#PBS -l select=1:ncpus=20:mpiprocs=20:ompthreads=1
+#PBS -l select=1:ncpus=128:mpiprocs=128:ompthreads=1
 #PBS -M itopcuog@uwyo.edu
 #PBS -m bea
 
@@ -19,4 +19,4 @@ spack load kynema-driver
 cd -
 
 
-mpiexec --cpu-bind depth -n 20 -ppn 20 -d 1 kynema_sgf  ./abl_spinup.inp &> abl_spinup.log
+mpiexec --cpu-bind depth -n 128 -ppn 128 -d 1 kynema_sgf  ./abl_spinup.inp &> abl_spinup.log

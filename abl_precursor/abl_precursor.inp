@@ -2,7 +2,7 @@
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #            SIMULATION STOP            #
 #.......................................#
-time.stop_time               =   86400     # Max (simulated) time to evolve
+time.stop_time               =   90000     # Max (simulated) time to evolve
 time.max_step                =   -1     # Max number of time steps
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #         TIME STEP COMPUTATION         #
@@ -18,8 +18,8 @@ io.line_plot_int = -1
 io.restart_file=/glade/derecho/scratch/topcuoglu/campaign_cases/abl_spinup/rst/chk14400
 io.derived_outputs = q_criterion
 #io.outputs = wall_dist synth_turb_forcing
-time.plot_interval            =  1440 #32         # Steps between plot files
-time.checkpoint_interval      =  1440 #1440      # Steps between checkpoint files
+time.plot_interval            =  3600 #32         # Steps between plot files
+time.checkpoint_interval      =  3600 #1440      # Steps between checkpoint files
 io.plot_file = out/plt
 io.check_file = rst/chk 
 
@@ -72,7 +72,7 @@ incflo.godunov_type = "weno_z"
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #        ADAPTIVE MESH REFINEMENT       #
 #.......................................#
-amr.n_cell              = 96 96 48 # Grid cells at coarsest AMRlevel
+amr.n_cell              = 192 192 96 # Grid cells at coarsest AMRlevel
 amr.refine_grid_layout = true
 #amr.max_grid_size       = 128
 amr.max_grid_size       = 32

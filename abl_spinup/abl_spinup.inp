@@ -63,7 +63,7 @@ incflo.godunov_type = "weno_z"
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #        ADAPTIVE MESH REFINEMENT       #
 #.......................................#
-amr.n_cell              = 96 96 48 # Grid cells at coarsest AMRlevel
+amr.n_cell              = 192 192 96 # Grid cells at coarsest AMRlevel
 amr.refine_grid_layout = true
 #amr.max_grid_size       = 128
 amr.max_grid_size       = 32

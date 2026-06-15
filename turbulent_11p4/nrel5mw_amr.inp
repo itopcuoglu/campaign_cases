@@ -15,7 +15,9 @@ time.force_regrid_on_restart=false
 #.......................................#
 io.KE_int = -1
 io.line_plot_int = -1
-io.restart_file = /glade/derecho/scratch/topcuoglu/campaign_cases/abl_precursor/rst/chk28800
+io.restart_file = /glade/derecho/scratch/topcuoglu/campaign_cases/abl_precursor/rst/chk90400
+time.checkpoint_start=18000
+time.checkpoint_start_time = 9000
 io.derived_outputs = q_criterion
 #io.outputs = wall_dist synth_turb_forcing
 time.plot_interval            =  1440 #32         # Steps between plot files
@@ -26,7 +28,8 @@ io.check_file = rst/chk
 ABL.bndry_file = /glade/derecho/scratch/topcuoglu/campaign_cases/abl_precursor/bndry_file
 ABL.bndry_io_mode = 1
 ABL.bndry_planes = xlo ylo
-ABL.bndry_output_start_time = 14400.0
+ABL.bndry_output_start_time = 45200.0
+#ABL.bndry_var_names = velocity temperature
 ABL.bndry_var_names = velocity temperature tke
 
 
@@ -37,7 +40,7 @@ incflo.initial_iterations = 3
 #               PHYSICS                 #
 #.......................................#
 incflo.physics = ABL
-ICNS.source_terms = ABLForcing BoussinesqBuoyancy ABLMeanBoussinesq
+ICNS.source_terms = BodyForce BoussinesqBuoyancy ABLMeanBoussinesq
 turbulence.model = OneEqKsgsM84
 TKE.source_terms = KsgsM84Src
 BoussinesqBuoyancy.reference_temperature = 290.0
@@ -47,7 +50,8 @@ ABL.surface_roughness_z0 = 0.05
 
 ## Initial conditions
 incflo.velocity = 9.8726896031426 5.7 0.0
-ABLForcing.abl_forcing_height = 90.0
+#ABLForcing.abl_forcing_height = 90.0
+BodyForce.magnitude = 0.00019794078217942783 0.00011852184506865869 0.0
 
 # ABL parameters
 ABL.perturb_temperature = true
@@ -57,7 +61,8 @@ ABL.perturb_ref_height  = 50
 ABL.init_tke_beare_profile = true
 ABL.temperature_heights   = 0.0  760.0 1000.
 ABL.temperature_values    = 290 290.0 292.4
-ABL.inflow_outflow_mode = true 
+#ABL.inflow_outflow_mode = true 
+ABL.enable_hybrid_rl_mode = true   
 
 ABLMeanBoussinesq.read_temperature_profile = true
 ABLMeanBoussinesq.temperature_profile_filename = avg_theta.dat
@@ -94,20 +99,20 @@ geometry.prob_lo        =    0.0         0.0      0.0  # Lo corner coordinates
 geometry.prob_hi        =    1920.0         1920.0       960.0  # Hi corner coordinates
 geometry.is_periodic    =   0   0   0   # Periodicity x y z (0/1)
 # Boundary conditions
-xlo.type = mass_inflow
+xlo.type = "mass_inflow"
 xlo.density = 1.225
-xlo.temperature = 0.0
+xlo.temperature = 290.0
 xlo.tke = 0.0
-xhi.type = pressure_outflow 
-ylo.type = mass_inflow
+xhi.type = "pressure_outflow"
+ylo.type = "mass_inflow"
 ylo.density = 1.225
-ylo.temperature = 0.0
+ylo.temperature = 290.0
 ylo.tke = 0.0
-yhi.type = pressure_outflow
-zlo.type =   "wall_model"
+yhi.type = "pressure_outflow"
+zlo.type = "wall_model"
 zlo.temperature_type = "wall_model"
 zlo.tke_type = "zero_gradient"
-zhi.type =   "slip_wall"
+zhi.type =  "slip_wall"
 zhi.temperature_type = "fixed_gradient"
 zhi.temperature = 0.01
 

@@ -2,7 +2,7 @@
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #            SIMULATION STOP            #
 #.......................................#
-time.stop_time               =   90000     # Max (simulated) time to evolve
+time.stop_time               =   60000     # Max (simulated) time to evolve
 time.max_step                =   -1     # Max number of time steps
 #¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨#
 #         TIME STEP COMPUTATION         #
@@ -18,8 +18,8 @@ io.line_plot_int = -1
 io.restart_file=/glade/derecho/scratch/topcuoglu/campaign_cases/abl_spinup/rst/chk14400
 io.derived_outputs = q_criterion
 #io.outputs = wall_dist synth_turb_forcing
-time.plot_interval            =  3600 #32         # Steps between plot files
-time.checkpoint_interval      =  3600 #1440      # Steps between checkpoint files
+time.plot_interval            =  1000 #32         # Steps between plot files
+time.checkpoint_interval      =  1000 #1440      # Steps between checkpoint files
 io.plot_file = out/plt
 io.check_file = rst/chk 
 
@@ -28,7 +28,7 @@ ABL.bndry_io_mode = 0
 ABL.bndry_planes = xlo ylo
 ABL.bndry_output_start_time = 7200.0
 ABL.bndry_var_names = velocity temperature tke
-
+ABL.bndry_output_format = native
 
 
 incflo.initial_iterations = 3
